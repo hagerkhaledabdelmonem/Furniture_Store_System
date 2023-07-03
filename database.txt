@@ -1,0 +1,157 @@
+Customer Table: 
+CREATE TABLE Customer_Project (
+  Customer_ID NUMBER(5) PRIMARY KEY ,
+  Customer_Name VARCHAR2(20) ,
+  Email VARCHAR2(20) , 
+  Address VARCHAR2(30) ,
+  Customer_Password varchar(20) unique,
+  Gender VARCHAR2(1)
+);
+Insertion Rows: 
+insert into Customer_Project values(1,'mona','mona@gmail.com','cairo','123','F');
+insert into Customer_Project values(2,'morad','morad@gmail.com','giza','246','M');
+insert into Customer_Project values(3,'monda','monda@gmail.com','alexandria','135','F');
+insert into Customer_Project values(4,'ahmed','ahmed@gmail.com','united_states','986','M');
+insert into Customer_Project values(5,'kenda','kenda@gmail.com','soria','568','F');
+
+Furniture Table:
+CREATE TABLE Furniture_Project (
+  furniture_Id NUMBER(6) PRIMARY KEY, 
+  furniture_name VARCHAR(40),
+  furniture_material VARCHAR(25),
+  furniture_existence VARCHAR(10),
+  furniture_categories VARCHAR(25),
+  number_of_available NUMBER(38),
+  Price NUMBER(38) ,
+  Customer_ID NUMBER(5),
+  FOREIGN KEY(Customer_ID) REFERENCES Customer_Project(Customer_ID) );
+Insertion Rows:
+INSERT INTO Furniture_Project
+VALUES(1,'Bengalo_Sofa','Massive_Yugoslavian_Oak','exist','sofas',5,2000,1);
+INSERT INTO Furniture_Project
+VALUES(2,'NORDIC_STORAGE_CUPBOARD','Natural_woods','not_exist','bedroom_collection',10,3000,2);
+INSERT INTO Furniture_Project
+VALUES(3,'MARGUERITE_DINING_ROOM','Natural_woods','exist','Modern_Dining_Room',3,5000,1);
+INSERT INTO Furniture_Project
+VALUES(4,'Wooden_TV_table','Wood','exist','Living_Room',4,1000,3);
+INSERT INTO Furniture_Project
+VALUES(5,'Garza_Office_Chair','Metal&Mesh','not_exist','Office_Room',15,1500,5);
+
+Cart Table:
+CREATE TABLE CART_Project(
+  Cart_ID NUMBER(5) PRIMARY KEY ,
+ furniture_Id NUMBER(5) , 
+  Customer_ID NUMBER(5) , 
+  number_items_selection NUMBER(38),
+  FOREIGN KEY(furniture_Id) REFERENCES Furniture_Project(furniture_Id),
+  FOREIGN KEY(Customer_ID) REFERENCES Customer_Project(Customer_ID)
+);
+ Insertion Rows:
+insert into CART_Project values(1,1,1,5);
+insert into CART_Project values(2,2,2,3);
+insert into CART_Project values(3,3,3,4);
+insert into CART_Project values(4,4,4,1);
+insert into CART_Project values(5,5,5,6);
+Orders Tables:
+CREATE TABLE Orders_Project(
+    Order_ID NUMBER(7) PRIMARY KEY,
+    Cart_ID NUMBER(5),
+    order_time DATE,
+    price NUMBER(10),
+    credit_or_not VARCHAR(1),
+    Customer_ID  number(5),
+    arrive_time DATE,
+    FOREIGN KEY (Cart_ID) REFERENCES CART_Project(Cart_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer_Project(Customer_ID)
+);
+Insertion Rows: 
+insert into Orders_Project values(1,1,TO_DATE('13-MAR-2023', 'DD-MON-YYYY'),1000,'y',1,TO_DATE('15-MAR-2023', 'DD-MON-YYYY'));
+insert into Orders_Project values(2,2,TO_DATE('16-APR-2023', 'DD-MON-YYYY'),1500,'y',2,TO_DATE('19-APR-2023', 'DD-MON-YYYY'));
+insert into Orders_Project values(3,3,TO_DATE('13-FEB-2023', 'DD-MON-YYYY'),3000,'y',3,TO_DATE('20-FEB-2023', 'DD-MON-YYYY'));
+insert into Orders_Project values(4,4,TO_DATE('12-SEP-2023', 'DD-MON-YYYY'),2500,'y',4,TO_DATE('14-SEP-2023', 'DD-MON-YYYY'));
+insert into Orders_Project values(5,5,TO_DATE('12-JAN-2023', 'DD-MON-YYYY'),4000,'y',5,TO_DATE('20-JAN-2023', 'DD-MON-YYYY'));
+
+Admin Table:
+CREATE TABLE Admin_Project (
+  Admin_ID  NUMBER(5) PRIMARY KEY,
+  Admin_Name VARCHAR(20) ,
+  Email VARCHAR(20),
+  Admin_Password varchar(20) 
+);
+Insertion Rows:
+INSERT INTO Admin_Project VALUES(1,'hager','hager@gmail.com','admin');
+INSERT INTO Admin_Project VALUES(2,'yasmin','yasmin@gmail.com','admin');
+INSERT INTO Admin_Project VALUES(3,'fatmas','fatmas@gmail.com','admin');
+INSERT INTO Admin_Project VALUES(4,'fatman','fatman@gmail.com','admin');
+INSERT INTO Admin_Project VALUES(5,'nour','nour@gmail.com','admin');
+INSERT INTO Admin_Project VALUES(6,'nada','nada@gmail.com','admin');
+
+Credit Card Table:
+CREATE TABLE credit_card_Project (
+     credit_id  number(5) primary key ,
+     Customer_ID number(5),
+     Credit_Password varchar2(50)unique ,
+     balance_money number(15),
+    FOREIGN KEY(Customer_ID) REFERENCES Customer_Project(Customer_ID)
+);
+Insertion Rows: 
+insert into  credit_card_Project  values(1,1,'sssr',4000);
+insert into credit_card_Project   values(2,2,'sojr',7000);
+insert into credit_card_Project   values(3,3,'psllr',4000);
+insert into credit_card_Project   values(4,4,'kpfr',60000);
+insert into credit_card_Project   values(5,5,'sjdo',4500);
+
+
+
+
+
+
+
+Procedures:
+create or replace procedure getCartID (CartID out number)
+as
+begin
+select max(Cart_ID)
+into CartID
+from CART_Project;
+end;
+
+
+create or replace procedure get_number_items (furnitureId in number, numberItems IN number)
+as
+begin
+  UPDATE Furniture_Project 
+  SET number_of_available = number_of_available - numberItems
+  WHERE Furniture_Project.furniture_Id = furnitureId;
+end;
+
+ create or replace
+procedure update_number_items (furnitureId in number, numberItems IN number)
+as
+begin
+ UPDATE Furniture_Project  
+ set number_of_available = number_of_available + numberItems
+ where furniture_Id = furnitureId ;
+end;
+
+
+
+
+create or replace
+procedure GetfurnitureID
+(FID out sys_refcursor)
+as
+begin
+open FID for
+select furniture_Id
+from Furniture_Project;
+end;
+
+
+create or replace procedure getCustomerID (CustomerID out number)
+as
+begin
+select max(Customer_ID)
+into CustomerID
+from Customer_Project;
+end;
