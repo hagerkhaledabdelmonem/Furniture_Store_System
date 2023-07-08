@@ -14,18 +14,18 @@ Every period the system provides offers and discounts.
 If the user chooses prime membership, she/he can see the offers first and special discount.
 
 -  Functional requirement
-  - Registration
-  - Login
-  - View product
-  - Make purchase
-  - Generate Report 
+   - Registration
+   - Login
+   - View product
+   - Make purchase
+   - Generate Report 
 -  Nonfunction requirement
-  - Usability
-  - Security
-  - Validation
-  - Scalability
-  - Maintainability
-  - Performance
+   - Usability
+   - Security
+   - Validation
+   - Scalability
+   - Maintainability
+   - Performance
 
 
 
