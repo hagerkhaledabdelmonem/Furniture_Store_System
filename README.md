@@ -41,8 +41,8 @@ If the user chooses prime membership, she/he can see the offers first and specia
 
 
 # Collaborators:
-- <a href="https://github.com/YasminHamada">Yasmin Hamada</a><br>
 - <a href="https://github.com/hagerkhaledabdelmonem">Hager Khaled</a><br>
+- <a href="https://github.com/YasminHamada">Yasmin Hamada</a><br>
 - <a href="https://github.com/Fatma-Salah-Saleh">Fatma Salah</a><br>
 - <a href="https://github.com/Nourhan613">Nourhan Mohamed</a><br>
 - <a href="https://github.com/nadakeshka">Nada Keshka</a><br>
