@@ -31,7 +31,7 @@ If the user chooses prime membership, she/he can see the offers first and specia
    - Use Case Diagram
 
       <p align="center">
-      <img src="https://github.com/YasminHamada/Furniture_Store_System/Diagrams/Use Case.png" width="450" height="300" />
+      <img src="https://github.com/hagerkhaledabdelmonem/Furniture_Store_System/Diagrams/Use Case.png"/>
       </p>
 
    - Sequence Diagram for **Mange Order**  Use Case
